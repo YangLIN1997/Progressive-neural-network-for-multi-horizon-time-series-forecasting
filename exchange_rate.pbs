@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -P RDS-FEI-ForecastingSolar-RW
+#PBS -l select=1:ncpus=12:mem=16gb:ngpus=1
+#PBS -l walltime=1:00:00
+#PBS -m abe
+#PBS -M ylin4015@uni.sydney.edu.au
+
+module load python/3.8.2 cuda/10.2.89 openmpi-gcc/4.0.0-cuda10
+source ~/pytorch/bin/activate 
+
+cd "$PBS_O_WORKDIR"
+#python preprocess_exchange.py --L=30 --H=20
+#python BO.py --dataset='exchange_rate' --model-name='param_search_exchange' > experiments/param_search_exchange/BO_results_exchange_rate.out
+#python preprocess_exchange.py --L=30 --H=40
+#python BO.py --dataset='exchange_rate' --model-name='param_search_exchange_h40' > experiments/param_search_exchange_h40/BO_results_exchange_rate_h40.out
+#python preprocess_exchange.py --L=30 --H=80
+#python BO.py --dataset='exchange_rate' --model-name='param_search_exchange_h80' > experiments/param_search_exchange_h80/BO_results_exchange_rate_h80.out
+#python train.py --dataset='exchange_rate' --model-name='base_model_exchange' > results_exchange.out
+
+python train.py --dataset='exchange_rate' --model-name='base_model_exchange' --restore-file='best'
